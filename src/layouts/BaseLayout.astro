@@ -81,7 +81,7 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
 
     <script>
       import { initSmoothScroll } from '@/scripts/smooth-scroll';
-      import { initGSAPAnimations, refreshScrollTrigger } from '@/scripts/gsap-animations';
+      import { initGSAPAnimations, refreshScrollTrigger, killScrollTriggers } from '@/scripts/gsap-animations';
 
       // Initialize on page load
       document.addEventListener('DOMContentLoaded', () => {
@@ -91,6 +91,8 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
 
       // Handle Astro view transitions
       document.addEventListener('astro:page-load', () => {
+        // Clean up old ScrollTriggers to prevent duplicates
+        killScrollTriggers();
         initSmoothScroll();
         initGSAPAnimations();
         // Refresh ScrollTrigger after content loads

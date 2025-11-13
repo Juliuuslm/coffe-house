@@ -31,16 +31,18 @@ function initScrollReveals() {
   // Fade up animation
   const fadeUpElements = document.querySelectorAll('[data-gsap="fade-up"]');
   fadeUpElements.forEach((element) => {
+    // Set initial visible state to prevent disappearing
+    gsap.set(element, { opacity: 1, y: 0 });
+
     gsap.from(element, {
       y: 60,
       opacity: 0,
       duration: 0.8,
       ease: 'power2.out',
-      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
@@ -48,15 +50,17 @@ function initScrollReveals() {
   // Fade in animation
   const fadeElements = document.querySelectorAll('[data-gsap="fade-in"]');
   fadeElements.forEach((element) => {
+    // Set initial visible state to prevent disappearing
+    gsap.set(element, { opacity: 1 });
+
     gsap.from(element, {
       opacity: 0,
       duration: 1,
       ease: 'power2.out',
-      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
@@ -64,16 +68,18 @@ function initScrollReveals() {
   // Scale in animation
   const scaleElements = document.querySelectorAll('[data-gsap="scale-in"]');
   scaleElements.forEach((element) => {
+    // Set initial visible state to prevent disappearing
+    gsap.set(element, { opacity: 1, scale: 1 });
+
     gsap.from(element, {
       scale: 0.8,
       opacity: 0,
       duration: 0.6,
       ease: 'back.out(1.7)',
-      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
@@ -92,11 +98,9 @@ function initScrollReveals() {
       duration: 0.6,
       stagger: 0.1,
       ease: 'power2.out',
-      immediateRender: false,
       scrollTrigger: {
         trigger: container,
         start: 'top 85%',
-        toggleActions: 'play none none none',
         once: true,
       },
     });
@@ -170,17 +174,19 @@ function initTextAnimations() {
 
     const wordElements = element.querySelectorAll('span');
 
+    // Set initial visible state to prevent disappearing
+    gsap.set(wordElements, { opacity: 1, y: 0 });
+
     gsap.from(wordElements, {
       y: 20,
       opacity: 0,
       duration: 0.5,
       stagger: 0.05,
       ease: 'power2.out',
-      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 85%',
-        toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
