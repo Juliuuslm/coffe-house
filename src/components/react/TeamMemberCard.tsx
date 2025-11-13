@@ -4,7 +4,7 @@ import { teamMembers, type TeamMember } from '@/data/team';
 const Modal = ({ member, onClose }: { member: TeamMember; onClose: () => void }) => {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in"
       onClick={onClose}
     >
       <div

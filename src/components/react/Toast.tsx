@@ -93,7 +93,7 @@ export const ToastContainer = () => {
 
   return (
     <div
-      className="fixed top-4 right-4 z-50 flex flex-col gap-3 pointer-events-none"
+      className="fixed top-4 right-4 z-[60] flex flex-col gap-3 pointer-events-none"
       style={{ maxHeight: '90vh', overflow: 'auto' }}
     >
       {toasts.map((toast) => (
