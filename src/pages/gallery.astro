@@ -1,53 +1,6 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
-
-const galleryImages = [
-  {
-    src: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800',
-    alt: 'Fresh coffee being poured',
-    category: 'coffee',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800',
-    alt: 'Cozy cafe interior',
-    category: 'interior',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800',
-    alt: 'Coffee brewing process',
-    category: 'coffee',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800',
-    alt: 'Cafe seating area',
-    category: 'interior',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1514066558159-fc8c737ef259?w=800',
-    alt: 'Espresso shot',
-    category: 'coffee',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800',
-    alt: 'Fresh pastries display',
-    category: 'food',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1501492246171-61dfa240b443?w=800',
-    alt: 'Latte art',
-    category: 'coffee',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800',
-    alt: 'Coffee and croissant',
-    category: 'food',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=800',
-    alt: 'Coffee shop exterior',
-    category: 'interior',
-  },
-];
+import GalleryGrid from '@/components/react/GalleryGrid';
 ---
 
 <MainLayout
@@ -58,89 +11,23 @@ const galleryImages = [
   <section class="relative h-[60vh] flex items-center justify-center bg-gradient-to-br from-secondary-900 to-secondary-800">
     <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1920')] bg-cover bg-center opacity-20"></div>
     <div class="relative z-10 container-custom text-center text-white">
-      <h1 class="text-h1 mb-6">Gallery</h1>
-      <p class="text-xl max-w-2xl mx-auto">
+      <h1 class="text-h1 mb-6" data-gsap="fade-up">Gallery</h1>
+      <p class="text-xl max-w-2xl mx-auto" data-gsap="fade-up">
         A glimpse into our world of exceptional coffee and cozy ambiance
       </p>
     </div>
   </section>
 
-  <!-- Gallery Grid -->
+  <!-- Gallery Grid with React Component -->
   <section class="section-padding">
     <div class="container-custom">
-      <!-- Filter Buttons -->
-      <div class="flex flex-wrap justify-center gap-4 mb-16">
-        <button
-          class="gallery-filter-btn active px-8 py-3 rounded-full font-secondary font-semibold transition-all duration-300"
-          data-filter="all"
-        >
-          All Photos
-        </button>
-        <button
-          class="gallery-filter-btn px-8 py-3 rounded-full font-secondary font-semibold transition-all duration-300"
-          data-filter="coffee"
-        >
-          ☕ Coffee
-        </button>
-        <button
-          class="gallery-filter-btn px-8 py-3 rounded-full font-secondary font-semibold transition-all duration-300"
-          data-filter="interior"
-        >
-          🏠 Interior
-        </button>
-        <button
-          class="gallery-filter-btn px-8 py-3 rounded-full font-secondary font-semibold transition-all duration-300"
-          data-filter="food"
-        >
-          🍰 Food
-        </button>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
-        {
-          galleryImages.map((image, index) => (
-            <div
-              class="gallery-item group relative overflow-hidden rounded-2xl aspect-square cursor-pointer"
-              data-category={image.category}
-              style={`animation-delay: ${index * 0.1}s`}
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <p class="font-secondary font-semibold">{image.alt}</p>
-                </div>
-              </div>
-              <!-- Zoom Icon -->
-              <div class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg">
-                <svg
-                  class="w-5 h-5 text-secondary"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"
-                  />
-                </svg>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <GalleryGrid client:load />
     </div>
   </section>
 
   <!-- CTA -->
   <section class="section-padding-sm bg-gradient-primary text-white">
-    <div class="container-custom text-center">
+    <div class="container-custom text-center" data-gsap="fade-up">
       <h2 class="text-h3 mb-6">Experience It Yourself</h2>
       <p class="text-lg mb-8 max-w-2xl mx-auto opacity-90">
         These photos only tell part of the story. Come visit us and create your own Coffee House memories.
@@ -151,64 +38,3 @@ const galleryImages = [
     </div>
   </section>
 </MainLayout>
-
-<script>
-  function initGalleryFilter() {
-    const filterButtons = document.querySelectorAll('.gallery-filter-btn');
-    const galleryItems = document.querySelectorAll('.gallery-item');
-
-    filterButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const filter = button.getAttribute('data-filter');
-
-        // Update active button
-        filterButtons.forEach((btn) => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        // Filter gallery items
-        galleryItems.forEach((item, index) => {
-          const category = item.getAttribute('data-category');
-
-          if (filter === 'all' || category === filter) {
-            item.style.display = 'block';
-            item.style.animation = `fadeInScale 0.5s ease-out ${index * 0.05}s forwards`;
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', initGalleryFilter);
-
-  // Re-initialize on Astro page transitions
-  document.addEventListener('astro:page-load', initGalleryFilter);
-</script>
-
-<style>
-  .gallery-filter-btn {
-    @apply border-2 border-gray-300 text-gray-700 hover:border-primary hover:text-primary;
-  }
-
-  .gallery-filter-btn.active {
-    @apply bg-primary text-white border-primary;
-  }
-
-  .gallery-item {
-    animation: fadeInScale 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-</style>

@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '@/components/astro/Header.astro';
 import Footer from '@/components/astro/Footer.astro';
+import ToastProvider from '@/components/react/ToastProvider';
 
 export interface Props {
   title?: string;
@@ -18,4 +19,5 @@ const { title, description, image } = Astro.props;
     <slot />
   </main>
   <Footer />
+  <ToastProvider client:only="react" />
 </BaseLayout>

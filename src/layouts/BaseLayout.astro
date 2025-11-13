@@ -55,17 +55,25 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
   <body>
     <slot />
 
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
     <script>
       import { initSmoothScroll } from '@/scripts/smooth-scroll';
+      import { initGSAPAnimations, refreshScrollTrigger } from '@/scripts/gsap-animations';
 
-      // Initialize smooth scroll on page load
+      // Initialize on page load
       document.addEventListener('DOMContentLoaded', () => {
         initSmoothScroll();
+        initGSAPAnimations();
       });
 
       // Handle Astro view transitions
       document.addEventListener('astro:page-load', () => {
         initSmoothScroll();
+        initGSAPAnimations();
+        // Refresh ScrollTrigger after content loads
+        setTimeout(() => refreshScrollTrigger(), 100);
       });
     </script>
   </body>

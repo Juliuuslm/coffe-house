@@ -1,16 +1,12 @@
 ---
+import NewsletterSubscribe from '@/components/react/NewsletterSubscribe';
+
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
   { name: 'Facebook', href: '#', icon: 'facebook' },
   { name: 'Instagram', href: '#', icon: 'instagram' },
   { name: 'Twitter', href: '#', icon: 'twitter' },
-];
-
-const openingHours = [
-  { day: 'Monday - Friday', hours: '7:00 AM - 8:00 PM' },
-  { day: 'Saturday', hours: '8:00 AM - 9:00 PM' },
-  { day: 'Sunday', hours: '8:00 AM - 7:00 PM' },
 ];
 ---
 
@@ -143,19 +139,9 @@ const openingHours = [
           </ul>
         </div>
 
-        <!-- Opening Hours -->
+        <!-- Newsletter -->
         <div>
-          <h4 class="font-secondary text-lg font-bold text-white mb-6">Opening Hours</h4>
-          <ul class="space-y-4">
-            {
-              openingHours.map((schedule) => (
-                <li>
-                  <div class="font-medium text-white">{schedule.day}</div>
-                  <div class="text-gray-400 text-sm">{schedule.hours}</div>
-                </li>
-              ))
-            }
-          </ul>
+          <NewsletterSubscribe client:load />
         </div>
       </div>
     </div>
