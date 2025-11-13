@@ -1,0 +1,178 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { name: 'Facebook', href: '#', icon: 'facebook' },
+  { name: 'Instagram', href: '#', icon: 'instagram' },
+  { name: 'Twitter', href: '#', icon: 'twitter' },
+];
+
+const openingHours = [
+  { day: 'Monday - Friday', hours: '7:00 AM - 8:00 PM' },
+  { day: 'Saturday', hours: '8:00 AM - 9:00 PM' },
+  { day: 'Sunday', hours: '8:00 AM - 7:00 PM' },
+];
+---
+
+<footer class="bg-secondary-900 text-gray-300">
+  <!-- Main Footer -->
+  <div class="section-padding border-b border-secondary-700">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <!-- About Column -->
+        <div>
+          <h3 class="font-primary text-2xl text-white mb-6">Coffee House</h3>
+          <p class="text-gray-400 mb-6 leading-relaxed">
+            Crafting exceptional coffee experiences since 2010. Every cup tells a story of passion, quality, and dedication to the art of coffee making.
+          </p>
+          <div class="flex gap-4">
+            {
+              socialLinks.map((social) => (
+                <a
+                  href={social.href}
+                  class="w-10 h-10 rounded-full border border-gray-600 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
+                  aria-label={social.name}
+                >
+                  <span class="sr-only">{social.name}</span>
+                  {social.icon === 'facebook' && (
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                    </svg>
+                  )}
+                  {social.icon === 'instagram' && (
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                      <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01" />
+                    </svg>
+                  )}
+                  {social.icon === 'twitter' && (
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                    </svg>
+                  )}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-secondary text-lg font-bold text-white mb-6">Quick Links</h4>
+          <ul class="space-y-3">
+            <li>
+              <a href="/" class="hover:text-primary transition-colors">Home</a>
+            </li>
+            <li>
+              <a href="/about" class="hover:text-primary transition-colors">About Us</a>
+            </li>
+            <li>
+              <a href="/menu" class="hover:text-primary transition-colors">Menu</a>
+            </li>
+            <li>
+              <a href="/gallery" class="hover:text-primary transition-colors">Gallery</a>
+            </li>
+            <li>
+              <a href="/contact" class="hover:text-primary transition-colors">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Get In Touch -->
+        <div>
+          <h4 class="font-secondary text-lg font-bold text-white mb-6">Get In Touch</h4>
+          <ul class="space-y-4">
+            <li class="flex gap-3">
+              <svg
+                class="w-5 h-5 text-primary flex-shrink-0 mt-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                />
+              </svg>
+              <span>123 Coffee Street, Downtown<br />City, State 12345</span>
+            </li>
+            <li class="flex gap-3">
+              <svg
+                class="w-5 h-5 text-primary flex-shrink-0 mt-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+              <a href="mailto:info@coffeehouse.com" class="hover:text-primary transition-colors">
+                info@coffeehouse.com
+              </a>
+            </li>
+            <li class="flex gap-3">
+              <svg
+                class="w-5 h-5 text-primary flex-shrink-0 mt-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+              <a href="tel:+1234567890" class="hover:text-primary transition-colors">
+                +1 (234) 567-890
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Opening Hours -->
+        <div>
+          <h4 class="font-secondary text-lg font-bold text-white mb-6">Opening Hours</h4>
+          <ul class="space-y-4">
+            {
+              openingHours.map((schedule) => (
+                <li>
+                  <div class="font-medium text-white">{schedule.day}</div>
+                  <div class="text-gray-400 text-sm">{schedule.hours}</div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="py-6">
+    <div class="container-custom">
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+        <p>
+          © {currentYear} Coffee House. All rights reserved.
+        </p>
+        <div class="flex gap-6">
+          <a href="/privacy" class="hover:text-primary transition-colors">Privacy Policy</a>
+          <a href="/terms" class="hover:text-primary transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

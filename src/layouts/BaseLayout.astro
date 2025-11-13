@@ -1,0 +1,72 @@
+---
+import '@/styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const {
+  title = 'Coffee House - Artisan Coffee & Pastries',
+  description = 'Experience the finest artisan coffee and freshly baked pastries in a cozy atmosphere. Your perfect coffee moment awaits.',
+  image = '/og-image.jpg',
+  canonicalURL,
+} = Astro.props;
+
+const canonical = canonicalURL || (Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined);
+
+const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title : `${title} | Coffee House`;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{siteTitle}</title>
+    <meta name="title" content={siteTitle} />
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    {canonical && <meta property="twitter:url" content={canonical} />}
+    <meta property="twitter:title" content={siteTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <!-- Fonts Preload -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      import { initSmoothScroll } from '@/scripts/smooth-scroll';
+
+      // Initialize smooth scroll on page load
+      document.addEventListener('DOMContentLoaded', () => {
+        initSmoothScroll();
+      });
+
+      // Handle Astro view transitions
+      document.addEventListener('astro:page-load', () => {
+        initSmoothScroll();
+      });
+    </script>
+  </body>
+</html>

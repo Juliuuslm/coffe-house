@@ -1,0 +1,161 @@
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+/* Base styles */
+@layer base {
+  html {
+    @apply scroll-smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply font-secondary bg-white;
+    color: #6E777D;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-primary text-heading font-medium;
+  }
+
+  h1 {
+    @apply text-h1;
+  }
+
+  h2 {
+    @apply text-h2;
+  }
+
+  h3 {
+    @apply text-h3;
+  }
+
+  h4 {
+    @apply text-h4;
+  }
+
+  h5 {
+    @apply text-h5;
+  }
+
+  h6 {
+    @apply text-h6;
+  }
+
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-300;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary-600 bg-clip-text text-transparent;
+  }
+
+  .bg-gradient-primary {
+    @apply bg-gradient-to-br from-primary to-primary-700;
+  }
+
+  .shadow-primary {
+    box-shadow: 0 10px 40px rgba(221, 89, 3, 0.2);
+  }
+
+  .overlay-dark {
+    @apply relative;
+  }
+
+  .overlay-dark::before {
+    @apply absolute inset-0 bg-black/50 z-0;
+    content: '';
+  }
+
+  .overlay-gradient {
+    @apply relative;
+  }
+
+  .overlay-gradient::before {
+    @apply absolute inset-0 z-0;
+    content: '';
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+  }
+}
+
+/* Dark mode variables */
+.dark {
+  --color-body: #A8B0B6;
+  --color-heading: #FFFFFF;
+}
+
+.dark body {
+  @apply bg-secondary-900 text-gray-300;
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6 {
+  @apply text-white;
+}
+
+/* Smooth scroll behavior with Lenis */
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-600;
+}
+
+/* Selection */
+::selection {
+  @apply bg-primary text-white;
+}
+
+::-moz-selection {
+  @apply bg-primary text-white;
+}
