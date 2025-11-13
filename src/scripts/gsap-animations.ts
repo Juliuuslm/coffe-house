@@ -42,7 +42,7 @@ function initScrollReveals() {
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        once: true,
+        toggleActions: 'play none none reset',
       },
     });
   });
@@ -60,7 +60,7 @@ function initScrollReveals() {
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        once: true,
+        toggleActions: 'play none none reset',
       },
     });
   });
@@ -79,7 +79,7 @@ function initScrollReveals() {
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
-        once: true,
+        toggleActions: 'play none none reset',
       },
     });
   });
@@ -101,7 +101,7 @@ function initScrollReveals() {
       scrollTrigger: {
         trigger: container,
         start: 'top 85%',
-        once: true,
+        toggleActions: 'play none none reset',
       },
     });
   });
@@ -186,7 +186,7 @@ function initTextAnimations() {
       scrollTrigger: {
         trigger: element,
         start: 'top 85%',
-        once: true,
+        toggleActions: 'play none none reset',
       },
     });
   });

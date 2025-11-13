@@ -80,7 +80,7 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
     <div id="toast-container"></div>
 
     <script>
-      import { initSmoothScroll } from '@/scripts/smooth-scroll';
+      import { initSmoothScroll, destroySmoothScroll } from '@/scripts/smooth-scroll';
       import { initGSAPAnimations, refreshScrollTrigger, killScrollTriggers } from '@/scripts/gsap-animations';
 
       // Initialize on page load
@@ -91,10 +91,13 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
 
       // Handle Astro view transitions
       document.addEventListener('astro:page-load', () => {
-        // Clean up old ScrollTriggers to prevent duplicates
-        killScrollTriggers();
+        // Clean up old instances to prevent duplicates
+        destroySmoothScroll(); // Destroy Lenis before reinitializing
+        killScrollTriggers();  // Clean up ScrollTriggers
+
         initSmoothScroll();
         initGSAPAnimations();
+
         // Refresh ScrollTrigger after content loads
         setTimeout(() => refreshScrollTrigger(), 100);
       });

@@ -123,7 +123,15 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
+  // Store cleanup function to remove event listeners
+  let cleanup: (() => void) | null = null;
+
   function initHeader() {
+    // Clean up previous event listeners
+    if (cleanup) {
+      cleanup();
+    }
+
     const header = document.getElementById('header');
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -131,9 +139,21 @@ const currentPath = Astro.url.pathname;
 
     if (!header || !mobileMenuButton || !mobileMenu || !mobileMenuBackdrop) return;
 
+    // Check current menu state from DOM and force close if needed
+    const isCurrentlyOpen = !mobileMenu.classList.contains('translate-x-full');
+    if (isCurrentlyOpen) {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenuBackdrop.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+    }
+
+    // Mobile menu toggle state
+    let isMenuOpen = false;
+
     // Sticky header on scroll
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
       const currentScroll = window.pageYOffset;
 
       if (currentScroll > 100) {
@@ -141,12 +161,7 @@ const currentPath = Astro.url.pathname;
       } else {
         header.classList.remove('bg-white', 'shadow-lg');
       }
-
-      lastScroll = currentScroll;
-    });
-
-    // Mobile menu toggle
-    let isMenuOpen = false;
+    };
 
     const openMenu = () => {
       isMenuOpen = true;
@@ -166,8 +181,8 @@ const currentPath = Astro.url.pathname;
       const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
       menuLinks.forEach((link, index) => {
         setTimeout(() => {
-          link.style.opacity = '1';
-          link.style.transform = 'translateX(0)';
+          (link as HTMLElement).style.opacity = '1';
+          (link as HTMLElement).style.transform = 'translateX(0)';
         }, index * 50);
       });
     };
@@ -189,35 +204,58 @@ const currentPath = Astro.url.pathname;
       // Reset menu links
       const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
       menuLinks.forEach((link) => {
-        link.style.opacity = '0';
-        link.style.transform = 'translateX(20px)';
+        (link as HTMLElement).style.opacity = '0';
+        (link as HTMLElement).style.transform = 'translateX(20px)';
       });
     };
 
-    mobileMenuButton.addEventListener('click', () => {
+    const handleMenuButtonClick = () => {
       if (isMenuOpen) {
         closeMenu();
       } else {
         openMenu();
       }
-    });
+    };
 
-    // Close menu on backdrop click
-    mobileMenuBackdrop.addEventListener('click', closeMenu);
+    const handleBackdropClick = () => {
+      closeMenu();
+    };
+
+    const handleLinkClick = () => {
+      closeMenu();
+    };
+
+    // Add event listeners
+    window.addEventListener('scroll', handleScroll);
+    mobileMenuButton.addEventListener('click', handleMenuButtonClick);
+    mobileMenuBackdrop.addEventListener('click', handleBackdropClick);
 
     // Close menu on link click
     const mobileLinks = mobileMenu.querySelectorAll('a');
     mobileLinks.forEach((link) => {
-      link.addEventListener('click', closeMenu);
+      link.addEventListener('click', handleLinkClick);
     });
 
     // Initialize menu links with hidden state
     const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
     menuLinks.forEach((link) => {
-      link.style.opacity = '0';
-      link.style.transform = 'translateX(20px)';
-      link.style.transition = 'opacity 0.3s, transform 0.3s';
+      (link as HTMLElement).style.opacity = '0';
+      (link as HTMLElement).style.transform = 'translateX(20px)';
+      (link as HTMLElement).style.transition = 'opacity 0.3s, transform 0.3s';
     });
+
+    // Store cleanup function
+    cleanup = () => {
+      window.removeEventListener('scroll', handleScroll);
+      mobileMenuButton.removeEventListener('click', handleMenuButtonClick);
+      mobileMenuBackdrop.removeEventListener('click', handleBackdropClick);
+      mobileLinks.forEach((link) => {
+        link.removeEventListener('click', handleLinkClick);
+      });
+    };
+
+    // Store closeMenu function globally for astro:before-swap
+    (window as any).__closeMenu = closeMenu;
   }
 
   // Initialize on page load
@@ -225,6 +263,13 @@ const currentPath = Astro.url.pathname;
 
   // Re-initialize on Astro page transitions
   document.addEventListener('astro:page-load', initHeader);
+
+  // Force close menu before page swap to prevent state issues
+  document.addEventListener('astro:before-swap', () => {
+    if ((window as any).__closeMenu) {
+      (window as any).__closeMenu();
+    }
+  });
 </script>
 
 <style>
