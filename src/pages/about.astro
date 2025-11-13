@@ -1,5 +1,6 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
+import TeamMemberCard from '@/components/react/TeamMemberCard';
 ---
 
 <MainLayout
@@ -108,36 +109,13 @@ import MainLayout from '@/layouts/MainLayout.astro';
   <section class="section-padding">
     <div class="container-custom">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <h2 class="text-h2 mb-6">Meet Our Baristas</h2>
+        <h2 class="text-h2 mb-6">Meet Our Team</h2>
         <p class="text-body text-lg">
-          The talented team behind every perfect cup
+          The talented people behind every perfect cup. Click to learn more about each team member.
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-        {
-          [
-            { name: 'Sarah Johnson', role: 'Head Barista', image: 'photo-1607746882042-944635dfe10e' },
-            { name: 'Michael Chen', role: 'Coffee Specialist', image: 'photo-1633332755192-727a05c4013d' },
-            { name: 'Emma Davis', role: 'Pastry Chef', image: 'photo-1580489944761-15a19d654956' },
-            { name: 'James Wilson', role: 'Barista', image: 'photo-1570295999919-56ceb5ecca61' },
-          ].map((member) => (
-            <div class="card-hover text-center">
-              <div class="aspect-square overflow-hidden bg-gray-200 mb-4">
-                <img
-                  src={`https://images.unsplash.com/${member.image}?w=400`}
-                  alt={member.name}
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <div class="p-4">
-                <h3 class="text-h5 font-primary mb-2">{member.name}</h3>
-                <p class="text-primary font-secondary font-semibold">{member.role}</p>
-              </div>
-            </div>
-          ))
-        }
-      </div>
+      <TeamMemberCard client:load />
     </div>
   </section>
 

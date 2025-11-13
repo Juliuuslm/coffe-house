@@ -1,54 +1,16 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
 import { menuItems } from '@/data/menu';
+import HeroSlider from '@/components/react/HeroSlider';
+import TestimonialsSlider from '@/components/react/TestimonialsSlider';
+import BlogSection from '@/components/react/BlogSection';
 
 const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
 ---
 
 <MainLayout>
-  <!-- Hero Section -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background with overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-secondary-900 to-secondary-800">
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920')] bg-cover bg-center opacity-30"></div>
-      <div class="absolute inset-0 overlay-gradient"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 container-custom text-center text-white">
-      <h1 class="text-display font-primary mb-6" data-gsap="fade-up">
-        Artisan Coffee<br />& Fresh Pastries
-      </h1>
-      <p class="text-body-lg max-w-2xl mx-auto mb-10 text-gray-200" data-gsap="fade-up">
-        Experience the perfect blend of exceptional coffee and cozy atmosphere. Every cup tells a story.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4" data-gsap="fade-up">
-        <a href="/menu" class="btn-primary btn-lg">
-          Explore Menu
-        </a>
-        <a href="/contact" class="btn-white btn-lg">
-          Reserve Table
-        </a>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <svg
-        class="w-6 h-6 text-white"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 14l-7 7m0 0l-7-7m7 7V3"
-        />
-      </svg>
-    </div>
-  </section>
+  <!-- Hero Slider -->
+  <HeroSlider client:load />
 
   <!-- About Preview Section -->
   <section class="section-padding bg-white">
@@ -153,6 +115,44 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
           <div class="text-gray-300 text-lg">Organic Beans</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+          Testimonials
+        </span>
+        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+          What Our Customers Say
+        </h2>
+        <p class="text-body text-lg" data-gsap="fade-up">
+          Don't just take our word for it. Here's what our coffee lovers have to say
+        </p>
+      </div>
+
+      <TestimonialsSlider client:load />
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+          Latest Stories
+        </span>
+        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+          From Our Blog
+        </h2>
+        <p class="text-body text-lg" data-gsap="fade-up">
+          Explore coffee culture, brewing tips, and behind-the-scenes stories
+        </p>
+      </div>
+
+      <BlogSection client:load limit={3} showViewAll={true} />
     </div>
   </section>
 

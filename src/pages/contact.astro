@@ -1,6 +1,7 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
 import ContactForm from '@/components/react/ContactForm';
+import ReservationSystem from '@/components/react/ReservationSystem';
 ---
 
 <MainLayout
@@ -175,6 +176,15 @@ import ContactForm from '@/components/react/ContactForm';
           <h2 class="text-h2 mb-8">Send Us a Message</h2>
           <ContactForm client:load />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto">
+        <ReservationSystem client:load />
       </div>
     </div>
   </section>

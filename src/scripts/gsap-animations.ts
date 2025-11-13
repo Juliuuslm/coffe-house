@@ -78,17 +78,23 @@ function initScrollReveals() {
   // Stagger children
   const staggerContainers = document.querySelectorAll('[data-gsap="stagger-children"]');
   staggerContainers.forEach((container) => {
-    const children = container.children;
+    const children = Array.from(container.children);
+
+    // Set initial state with gsap.set to ensure visibility by default
+    gsap.set(children, { opacity: 1, y: 0 });
+
     gsap.from(children, {
       y: 40,
       opacity: 0,
       duration: 0.6,
       stagger: 0.1,
       ease: 'power2.out',
+      immediateRender: false,
       scrollTrigger: {
         trigger: container,
         start: 'top 85%',
         toggleActions: 'play none none none',
+        once: true,
       },
     });
   });
