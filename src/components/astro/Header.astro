@@ -62,30 +62,62 @@ const currentPath = Astro.url.pathname;
     </div>
   </div>
 
+  <!-- Mobile Menu Backdrop -->
+  <div
+    id="mobile-menu-backdrop"
+    class="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    style="top: 80px; z-index: 40;"
+  ></div>
+
   <!-- Mobile Menu -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed inset-0 bg-white transform translate-x-full transition-transform duration-300 ease-in-out"
-    style="top: 80px;"
+    class="lg:hidden fixed inset-0 bg-white transform translate-x-full transition-all duration-300 ease-out shadow-2xl"
+    style="top: 80px; z-index: 45;"
   >
-    <nav class="container-custom py-8 flex flex-col gap-6">
+    <nav class="container-custom py-8 flex flex-col gap-6 h-full overflow-y-auto">
       {
-        navLinks.map((link) => (
+        navLinks.map((link, index) => (
           <a
             href={link.href}
-            class={`font-secondary font-medium text-xl transition-colors ${
+            data-menu-link
+            class={`mobile-menu-link font-secondary font-semibold text-2xl transition-all duration-300 hover:pl-4 ${
               currentPath === link.href
                 ? 'text-primary'
                 : 'text-heading hover:text-primary'
             }`}
+            style={`transition-delay: ${index * 50}ms;`}
           >
-            {link.name}
+            <span class="flex items-center gap-3">
+              <span class="w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-8"></span>
+              {link.name}
+            </span>
           </a>
         ))
       }
-      <a href="/contact" class="btn-primary mt-4">
-        Reserve Table
-      </a>
+      <div class="pt-6 border-t border-gray-200 space-y-4">
+        <a href="/contact" class="btn-primary w-full block text-center" data-menu-link>
+          Reserve Table
+        </a>
+        <div class="flex gap-4 justify-center" data-menu-link>
+          <a href="#" class="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01" />
+            </svg>
+          </a>
+          <a href="#" class="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+            </svg>
+          </a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -95,8 +127,9 @@ const currentPath = Astro.url.pathname;
     const header = document.getElementById('header');
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
 
-    if (!header || !mobileMenuButton || !mobileMenu) return;
+    if (!header || !mobileMenuButton || !mobileMenu || !mobileMenuBackdrop) return;
 
     // Sticky header on scroll
     let lastScroll = 0;
@@ -114,46 +147,76 @@ const currentPath = Astro.url.pathname;
 
     // Mobile menu toggle
     let isMenuOpen = false;
+
+    const openMenu = () => {
+      isMenuOpen = true;
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      mobileMenuBackdrop.classList.remove('opacity-0', 'pointer-events-none');
+      mobileMenuBackdrop.classList.add('opacity-100');
+      document.body.style.overflow = 'hidden';
+
+      // Animate hamburger to X
+      const spans = mobileMenuButton.querySelectorAll('span');
+      spans[0].style.transform = 'rotate(45deg) translateY(8px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+
+      // Stagger animation for menu links
+      const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
+      menuLinks.forEach((link, index) => {
+        setTimeout(() => {
+          link.style.opacity = '1';
+          link.style.transform = 'translateX(0)';
+        }, index * 50);
+      });
+    };
+
+    const closeMenu = () => {
+      isMenuOpen = false;
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      mobileMenuBackdrop.classList.add('opacity-0', 'pointer-events-none');
+      mobileMenuBackdrop.classList.remove('opacity-100');
+      document.body.style.overflow = '';
+
+      // Animate X back to hamburger
+      const spans = mobileMenuButton.querySelectorAll('span');
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = '';
+
+      // Reset menu links
+      const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
+      menuLinks.forEach((link) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateX(20px)';
+      });
+    };
+
     mobileMenuButton.addEventListener('click', () => {
-      isMenuOpen = !isMenuOpen;
-
       if (isMenuOpen) {
-        mobileMenu.classList.remove('translate-x-full');
-        mobileMenu.classList.add('translate-x-0');
-        document.body.style.overflow = 'hidden';
-
-        // Animate hamburger to X
-        const spans = mobileMenuButton.querySelectorAll('span');
-        spans[0].style.transform = 'rotate(45deg) translateY(8px)';
-        spans[1].style.opacity = '0';
-        spans[2].style.transform = 'rotate(-45deg) translateY(-8px)';
+        closeMenu();
       } else {
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenu.classList.remove('translate-x-0');
-        document.body.style.overflow = '';
-
-        // Animate X back to hamburger
-        const spans = mobileMenuButton.querySelectorAll('span');
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = '';
+        openMenu();
       }
     });
+
+    // Close menu on backdrop click
+    mobileMenuBackdrop.addEventListener('click', closeMenu);
 
     // Close menu on link click
     const mobileLinks = mobileMenu.querySelectorAll('a');
     mobileLinks.forEach((link) => {
-      link.addEventListener('click', () => {
-        isMenuOpen = false;
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenu.classList.remove('translate-x-0');
-        document.body.style.overflow = '';
+      link.addEventListener('click', closeMenu);
+    });
 
-        const spans = mobileMenuButton.querySelectorAll('span');
-        spans[0].style.transform = '';
-        spans[1].style.opacity = '1';
-        spans[2].style.transform = '';
-      });
+    // Initialize menu links with hidden state
+    const menuLinks = mobileMenu.querySelectorAll('[data-menu-link]');
+    menuLinks.forEach((link) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateX(20px)';
+      link.style.transition = 'opacity 0.3s, transform 0.3s';
     });
   }
 

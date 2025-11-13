@@ -113,16 +113,21 @@ export default {
     function ({ addComponents, theme }) {
       addComponents({
         '.btn': {
-          '@apply inline-flex items-center justify-center px-8 py-4 font-secondary font-semibold text-base rounded-full transition-all duration-300': {},
+          '@apply inline-flex items-center justify-center px-8 py-4 font-secondary font-semibold text-base rounded-full transition-all duration-300 relative overflow-hidden': {},
+          '@apply focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30': {},
+          '@apply active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none': {},
         },
         '.btn-primary': {
-          '@apply btn bg-primary text-white hover:bg-primary-600 hover:shadow-lg hover:-translate-y-0.5': {},
+          '@apply btn bg-primary text-white hover:bg-primary-600 hover:shadow-xl hover:-translate-y-1 hover:scale-105': {},
+          '@apply focus-visible:ring-primary/40 active:shadow-lg': {},
         },
         '.btn-secondary': {
-          '@apply btn border-2 border-secondary text-secondary hover:bg-secondary hover:text-white': {},
+          '@apply btn border-2 border-secondary text-secondary hover:bg-secondary hover:text-white hover:shadow-lg hover:-translate-y-0.5': {},
+          '@apply focus-visible:ring-secondary/30 active:shadow-md': {},
         },
         '.btn-white': {
-          '@apply btn bg-white text-secondary hover:bg-gray-50': {},
+          '@apply btn bg-white text-secondary hover:bg-gray-50 hover:shadow-md hover:-translate-y-0.5': {},
+          '@apply focus-visible:ring-gray-300 active:bg-gray-100': {},
         },
         '.btn-lg': {
           '@apply px-10 py-5 text-lg': {},
@@ -143,10 +148,11 @@ export default {
           '@apply py-12 md:py-16 lg:py-20': {},
         },
         '.card': {
-          '@apply bg-white rounded-2xl overflow-hidden transition-all duration-300': {},
+          '@apply bg-white rounded-2xl overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/20': {},
         },
         '.card-hover': {
-          '@apply card hover:shadow-2xl hover:-translate-y-1': {},
+          '@apply card hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] cursor-pointer': {},
+          '@apply active:scale-100 active:translate-y-0': {},
         },
         '.heading-primary': {
           '@apply font-primary font-medium text-heading': {},
