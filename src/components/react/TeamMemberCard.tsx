@@ -28,6 +28,8 @@ const Modal = ({ member, onClose }: { member: TeamMember; onClose: () => void })
             src={member.image}
             alt={member.name}
             className="w-full h-full object-cover"
+            loading="lazy"
+            decoding="async"
           />
         </div>
 
@@ -159,6 +161,8 @@ export const TeamMemberCard = () => {
                 src={member.image}
                 alt={member.name}
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading="lazy"
+                decoding="async"
               />
             </div>
 

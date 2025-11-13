@@ -79,6 +79,8 @@ export const TestimonialsSlider = () => {
                   src={testimonial.image}
                   alt={testimonial.name}
                   className="w-14 h-14 rounded-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div>
                   <h4 className="font-secondary font-bold text-heading text-lg">

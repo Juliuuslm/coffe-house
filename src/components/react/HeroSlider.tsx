@@ -91,9 +91,12 @@ export const HeroSlider = () => {
             <div className="relative h-full w-full">
               {/* Background Image */}
               <div className="absolute inset-0 bg-gradient-to-br from-secondary-900 to-secondary-800">
-                <div
-                  className="absolute inset-0 bg-cover bg-center opacity-30"
-                  style={{ backgroundImage: `url(${slide.image})` }}
+                <img
+                  src={slide.image}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-30"
+                  loading={slide.id === 1 ? 'eager' : 'lazy'}
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               </div>
