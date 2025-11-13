@@ -36,6 +36,7 @@ function initScrollReveals() {
       opacity: 0,
       duration: 0.8,
       ease: 'power2.out',
+      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
@@ -51,6 +52,7 @@ function initScrollReveals() {
       opacity: 0,
       duration: 1,
       ease: 'power2.out',
+      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
@@ -67,6 +69,7 @@ function initScrollReveals() {
       opacity: 0,
       duration: 0.6,
       ease: 'back.out(1.7)',
+      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 90%',
@@ -173,6 +176,7 @@ function initTextAnimations() {
       duration: 0.5,
       stagger: 0.05,
       ease: 'power2.out',
+      immediateRender: false,
       scrollTrigger: {
         trigger: element,
         start: 'top 85%',
