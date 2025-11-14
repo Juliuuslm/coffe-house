@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { teamMembers, type TeamMember } from '@/data/team';
 
 const Modal = ({ member, onClose }: { member: TeamMember; onClose: () => void }) => {
@@ -145,6 +145,19 @@ const Modal = ({ member, onClose }: { member: TeamMember; onClose: () => void })
 
 export const TeamMemberCard = () => {
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+
+  // Close modal before View Transitions
+  useEffect(() => {
+    const handleBeforeSwap = () => {
+      setSelectedMember(null);
+    };
+
+    document.addEventListener('astro:before-swap', handleBeforeSwap);
+
+    return () => {
+      document.removeEventListener('astro:before-swap', handleBeforeSwap);
+    };
+  }, []);
 
   return (
     <>

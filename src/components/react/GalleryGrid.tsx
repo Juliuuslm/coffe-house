@@ -30,6 +30,22 @@ export const GalleryGrid = () => {
     };
   }, []);
 
+  // Cleanup PhotoSwipe before View Transitions
+  useEffect(() => {
+    const handleBeforeSwap = () => {
+      if (lightboxRef.current) {
+        lightboxRef.current.destroy();
+        lightboxRef.current = null;
+      }
+    };
+
+    document.addEventListener('astro:before-swap', handleBeforeSwap);
+
+    return () => {
+      document.removeEventListener('astro:before-swap', handleBeforeSwap);
+    };
+  }, []);
+
   // Filter images
   useEffect(() => {
     if (activeCategory === 'all') {
