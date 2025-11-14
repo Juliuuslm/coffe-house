@@ -1,0 +1,317 @@
+---
+import MainLayout from '@/layouts/MainLayout.astro';
+import TableOfContents from '@/components/react/TableOfContents';
+import { blogPosts } from '@/data/blog';
+import { parseMarkdown, addHeadingIds } from '@/utils/markdown';
+
+export async function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Parse markdown content
+const rawHtml = parseMarkdown(post.content);
+const htmlContent = addHeadingIds(rawHtml);
+
+// Get related posts (same category, excluding current post)
+const relatedPosts = blogPosts
+  .filter((p) => p.category === post.category && p.slug !== post.slug)
+  .slice(0, 3);
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  });
+};
+
+// Schema.org structured data for SEO
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  image: post.image,
+  datePublished: post.publishedAt,
+  author: {
+    '@type': 'Person',
+    name: post.author.name,
+  },
+  description: post.excerpt,
+  keywords: post.tags.join(', '),
+};
+---
+
+<MainLayout
+  title={`${post.title} - Coffee House Blog`}
+  description={post.excerpt}
+  image={post.image}
+>
+  <!-- Schema.org markup -->
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <!-- Hero Section -->
+  <section class="relative py-20 md:py-28 bg-gray-900 overflow-hidden">
+    {/* Background Image with Overlay */}
+    <div class="absolute inset-0">
+      <img
+        src={post.image}
+        alt={post.title}
+        class="w-full h-full object-cover opacity-30"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900/60"></div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="max-w-4xl mx-auto">
+        {/* Breadcrumbs */}
+        <nav class="mb-6" data-gsap="fade-up">
+          <ol class="flex items-center gap-2 text-sm text-white/70">
+            <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+            <li>/</li>
+            <li><a href="/blog" class="hover:text-white transition-colors">Blog</a></li>
+            <li>/</li>
+            <li class="text-white font-semibold">{post.title}</li>
+          </ol>
+        </nav>
+
+        {/* Category */}
+        <div class="mb-4" data-gsap="fade-up">
+          <a
+            href={`/blog?category=${post.category}`}
+            class="inline-block px-4 py-2 bg-primary text-white rounded-full text-sm font-secondary font-semibold hover:bg-primary-600 transition-colors"
+          >
+            {post.category}
+          </a>
+        </div>
+
+        {/* Title */}
+        <h1 class="text-h1 font-primary text-white mb-6" data-gsap="fade-up">
+          {post.title}
+        </h1>
+
+        {/* Meta Info */}
+        <div
+          class="flex flex-wrap items-center gap-6 text-white/90 mb-6"
+          data-gsap="fade-up"
+        >
+          <div class="flex items-center gap-3">
+            <img
+              src={post.author.avatar}
+              alt={post.author.name}
+              class="w-12 h-12 rounded-full object-cover"
+              loading="eager"
+            />
+            <div>
+              <p class="font-secondary font-semibold text-white">{post.author.name}</p>
+              <p class="text-sm text-white/70">Author</p>
+            </div>
+          </div>
+
+          <div class="h-8 w-px bg-white/20"></div>
+
+          <div>
+            <p class="font-secondary font-semibold text-white">{formatDate(post.publishedAt)}</p>
+            <p class="text-sm text-white/70">Published</p>
+          </div>
+
+          <div class="h-8 w-px bg-white/20"></div>
+
+          <div>
+            <p class="font-secondary font-semibold text-white">{post.readTime}</p>
+            <p class="text-sm text-white/70">Reading Time</p>
+          </div>
+        </div>
+
+        {/* Tags */}
+        <div class="flex flex-wrap gap-2" data-gsap="fade-up">
+          {
+            post.tags.map((tag) => (
+              <a
+                href={`/blog?tag=${tag}`}
+                class="px-3 py-1 bg-white/10 backdrop-blur-sm text-white rounded-full text-sm hover:bg-white/20 transition-colors"
+              >
+                #{tag}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid lg:grid-cols-12 gap-12">
+        {/* Main Content */}
+        <article class="lg:col-span-8">
+          <div
+            class="prose prose-lg max-w-none"
+            data-gsap="fade-up"
+            set:html={htmlContent}
+          />
+
+          {/* Share Section */}
+          <div
+            class="mt-12 pt-8 border-t border-gray-200 flex items-center justify-between"
+            data-gsap="fade-up"
+          >
+            <p class="font-secondary font-semibold text-heading">Share this article:</p>
+            <div class="flex gap-3">
+              <a
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://yourdomain.com/blog/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-10 h-10 rounded-full bg-gray-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                aria-label="Share on Twitter"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+                  />
+                </svg>
+              </a>
+
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://yourdomain.com/blog/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-10 h-10 rounded-full bg-gray-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                aria-label="Share on Facebook"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  />
+                </svg>
+              </a>
+
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://yourdomain.com/blog/${post.slug}`)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-10 h-10 rounded-full bg-gray-100 hover:bg-primary hover:text-white flex items-center justify-center transition-colors"
+                aria-label="Share on LinkedIn"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"
+                  />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </article>
+
+        {/* Sidebar */}
+        <aside class="lg:col-span-4">
+          {/* Table of Contents */}
+          <TableOfContents content={post.content} client:load />
+
+          {/* Author Card */}
+          <div class="mt-8 bg-gray-50 rounded-2xl p-6" data-gsap="fade-up">
+            <h3 class="text-h6 font-primary mb-4">About the Author</h3>
+            <div class="flex items-start gap-4">
+              <img
+                src={post.author.avatar}
+                alt={post.author.name}
+                class="w-16 h-16 rounded-full object-cover"
+                loading="lazy"
+              />
+              <div>
+                <p class="font-secondary font-semibold text-heading mb-2">
+                  {post.author.name}
+                </p>
+                <p class="text-sm text-body">
+                  Coffee enthusiast and expert writer sharing knowledge about coffee culture and
+                  brewing techniques.
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  {/* Related Posts */}
+  {
+    relatedPosts.length > 0 && (
+      <section class="section-padding bg-gray-50">
+        <div class="container-custom">
+          <h2 class="text-h2 font-primary mb-12 text-center" data-gsap="fade-up">
+            Related Articles
+          </h2>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-gsap="stagger-children">
+            {relatedPosts.map((relatedPost) => (
+              <article class="card-hover group flex flex-col overflow-hidden">
+                <div class="aspect-[16/10] overflow-hidden bg-gray-200">
+                  <img
+                    src={relatedPost.image}
+                    alt={relatedPost.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow">
+                  <span class="inline-block px-3 py-1 text-xs font-secondary font-semibold text-primary bg-primary/10 rounded-full mb-3 w-fit">
+                    {relatedPost.category}
+                  </span>
+
+                  <h3 class="text-h5 font-primary mb-3 group-hover:text-primary transition-colors">
+                    <a href={`/blog/${relatedPost.slug}`}>{relatedPost.title}</a>
+                  </h3>
+
+                  <p class="text-body text-sm mb-4 flex-grow line-clamp-3">
+                    {relatedPost.excerpt}
+                  </p>
+
+                  <a
+                    href={`/blog/${relatedPost.slug}`}
+                    class="inline-flex items-center gap-2 text-primary hover:gap-3 transition-all font-secondary font-semibold text-sm"
+                  >
+                    Read More
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="text-center mt-12" data-gsap="fade-up">
+            <a href="/blog" class="btn-primary btn-lg">
+              View All Articles
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <style>
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+  </style>
+</MainLayout>

@@ -175,3 +175,238 @@ html.lenis {
 ::-moz-selection {
   @apply bg-primary text-white;
 }
+
+/* Markdown/Prose Styles */
+@layer components {
+  .prose {
+    @apply text-body leading-relaxed;
+    max-width: 100%;
+  }
+
+  .prose h1 {
+    @apply text-4xl md:text-5xl font-primary font-bold text-heading mt-12 mb-6 first:mt-0;
+  }
+
+  .prose h2 {
+    @apply text-3xl md:text-4xl font-primary font-bold text-heading mt-10 mb-5;
+  }
+
+  .prose h3 {
+    @apply text-2xl md:text-3xl font-primary font-bold text-heading mt-8 mb-4;
+  }
+
+  .prose h4 {
+    @apply text-xl md:text-2xl font-primary font-semibold text-heading mt-6 mb-3;
+  }
+
+  .prose h5 {
+    @apply text-lg md:text-xl font-primary font-semibold text-heading mt-6 mb-3;
+  }
+
+  .prose h6 {
+    @apply text-base md:text-lg font-primary font-semibold text-heading mt-6 mb-3;
+  }
+
+  .prose p {
+    @apply mb-6 text-base md:text-lg leading-relaxed;
+  }
+
+  .prose strong {
+    @apply font-bold text-heading;
+  }
+
+  .prose em {
+    @apply italic;
+  }
+
+  .prose ul,
+  .prose ol {
+    @apply mb-6 ml-6 space-y-2;
+  }
+
+  .prose ul {
+    @apply list-disc;
+  }
+
+  .prose ol {
+    @apply list-decimal;
+  }
+
+  .prose li {
+    @apply text-base md:text-lg leading-relaxed;
+    @apply pl-2;
+  }
+
+  .prose li > p {
+    @apply mb-2;
+  }
+
+  .prose a {
+    @apply text-primary font-semibold hover:text-primary-600 underline underline-offset-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-4 border-primary bg-gray-50 pl-6 pr-4 py-4 my-6 italic text-lg;
+  }
+
+  .prose blockquote p {
+    @apply mb-2 last:mb-0;
+  }
+
+  .prose code {
+    @apply bg-gray-100 text-primary px-2 py-1 rounded text-sm font-mono;
+  }
+
+  .prose pre {
+    @apply bg-gray-900 text-gray-100 rounded-xl p-6 my-6 overflow-x-auto;
+  }
+
+  .prose pre code {
+    @apply bg-transparent text-gray-100 p-0 text-sm;
+  }
+
+  .prose img {
+    @apply rounded-xl my-8 shadow-lg w-full;
+  }
+
+  .prose hr {
+    @apply border-gray-200 my-12;
+  }
+
+  .prose table {
+    @apply w-full my-8 border-collapse;
+  }
+
+  .prose thead {
+    @apply bg-gray-50;
+  }
+
+  .prose th {
+    @apply border border-gray-200 px-4 py-3 text-left font-semibold text-heading;
+  }
+
+  .prose td {
+    @apply border border-gray-200 px-4 py-3;
+  }
+
+  .prose tbody tr:nth-child(even) {
+    @apply bg-gray-50/50;
+  }
+
+  /* Larger prose variant */
+  .prose-lg h1 {
+    @apply text-5xl md:text-6xl;
+  }
+
+  .prose-lg h2 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  .prose-lg h3 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  .prose-lg p,
+  .prose-lg li {
+    @apply text-lg md:text-xl;
+  }
+}
+
+/* Syntax Highlighting - GitHub Dark Theme */
+@layer base {
+  /* Highlight.js GitHub Dark theme */
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1.5em;
+    background: #0d1117;
+    color: #c9d1d9;
+  }
+
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-template-tag,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-variable.language_ {
+    color: #ff7b72;
+  }
+
+  .hljs-title,
+  .hljs-title.class_,
+  .hljs-title.class_.inherited__,
+  .hljs-title.function_ {
+    color: #d2a8ff;
+  }
+
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-operator,
+  .hljs-variable,
+  .hljs-selector-attr,
+  .hljs-selector-class,
+  .hljs-selector-id {
+    color: #79c0ff;
+  }
+
+  .hljs-regexp,
+  .hljs-string,
+  .hljs-meta .hljs-string {
+    color: #a5d6ff;
+  }
+
+  .hljs-built_in,
+  .hljs-symbol {
+    color: #ffa657;
+  }
+
+  .hljs-comment,
+  .hljs-code,
+  .hljs-formula {
+    color: #8b949e;
+  }
+
+  .hljs-name,
+  .hljs-quote,
+  .hljs-selector-tag,
+  .hljs-selector-pseudo {
+    color: #7ee787;
+  }
+
+  .hljs-subst {
+    color: #c9d1d9;
+  }
+
+  .hljs-section {
+    color: #1f6feb;
+    font-weight: bold;
+  }
+
+  .hljs-bullet {
+    color: #f2cc60;
+  }
+
+  .hljs-emphasis {
+    color: #c9d1d9;
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    color: #c9d1d9;
+    font-weight: bold;
+  }
+
+  .hljs-addition {
+    color: #aff5b4;
+    background-color: #033a16;
+  }
+
+  .hljs-deletion {
+    color: #ffdcd7;
+    background-color: #67060c;
+  }
+}
