@@ -15,26 +15,26 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- About Preview Section -->
   <section class="section-padding bg-white">
     <div class="container-custom">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
         <div>
-          <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+          <span class="text-primary font-secondary font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 block" data-gsap="fade-in">
             Since 2010
           </span>
-          <h2 class="text-h2 mb-6" data-gsap="fade-up">
+          <h2 class="text-h2 sm:text-h2 md:text-h2 lg:text-h2 xl:text-h2 mb-4 sm:mb-5 md:mb-6" data-gsap="fade-up">
             Crafted with Passion, Served with Love
           </h2>
-          <p class="text-body text-lg mb-6 leading-relaxed" data-gsap="fade-up">
+          <p class="text-body text-base sm:text-lg mb-4 sm:mb-5 md:mb-6 leading-relaxed" data-gsap="fade-up">
             At Coffee House, we believe every cup of coffee should be an experience. From sourcing the finest beans to perfecting each brew, we're dedicated to bringing you exceptional coffee in a warm, welcoming environment.
           </p>
-          <p class="text-body mb-8" data-gsap="fade-up">
+          <p class="text-body text-sm sm:text-base mb-6 sm:mb-7 md:mb-8 leading-relaxed" data-gsap="fade-up">
             Our expert baristas craft each drink with precision and care, ensuring every visit is memorable. Join us for your morning ritual or afternoon escape.
           </p>
-          <a href="/about" class="btn-primary" data-gsap="fade-up">
+          <a href="/about" class="btn-primary w-full sm:w-auto" data-gsap="fade-up">
             Our Story
           </a>
         </div>
-        <div class="relative" data-gsap="scale-in">
-          <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl">
+        <div class="relative order-first lg:order-last" data-gsap="scale-in">
+          <div class="aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800"
               alt="Coffee House Interior"
@@ -51,19 +51,19 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- Featured Menu Section -->
   <section class="section-padding bg-gray-50">
     <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+        <span class="text-primary font-secondary font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 block" data-gsap="fade-in">
           Menu Highlights
         </span>
-        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+        <h2 class="text-h2 mb-4 sm:mb-5 md:mb-6" data-gsap="fade-up">
           Signature Selections
         </h2>
-        <p class="text-body text-lg" data-gsap="fade-up">
+        <p class="text-body text-sm sm:text-base md:text-lg" data-gsap="fade-up">
           Discover our most loved creations, carefully crafted to perfection
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-gsap="stagger-children">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 md:gap-8" data-gsap="stagger-children">
         {
           featuredMenuItems.map((item) => (
             <div class="card-hover group">
@@ -74,20 +74,20 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
                   class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <div class="p-6">
-                <div class="flex justify-between items-start mb-3">
-                  <h3 class="text-h5 font-primary">{item.name}</h3>
-                  <span class="text-primary font-bold text-lg">{item.price}</span>
+              <div class="p-4 sm:p-5 md:p-6">
+                <div class="flex justify-between items-start mb-2 sm:mb-3">
+                  <h3 class="text-base sm:text-lg md:text-h5 font-primary flex-1">{item.name}</h3>
+                  <span class="text-primary font-bold text-base sm:text-lg flex-shrink-0 ml-3">{item.price}</span>
                 </div>
-                <p class="text-body text-sm">{item.description}</p>
+                <p class="text-body text-xs sm:text-sm leading-relaxed">{item.description}</p>
               </div>
             </div>
           ))
         }
       </div>
 
-      <div class="text-center mt-12">
-        <a href="/menu" class="btn-primary btn-lg">
+      <div class="text-center mt-8 sm:mt-10 md:mt-12">
+        <a href="/menu" class="btn-primary w-full sm:w-auto">
           View Full Menu
         </a>
       </div>
@@ -97,22 +97,22 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- Stats Section -->
   <section class="section-padding bg-secondary-900 text-white">
     <div class="container-custom">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-10 text-center">
         <div data-gsap="fade-up">
-          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="14" data-suffix="+">0</div>
-          <div class="text-gray-300 text-lg">Years Experience</div>
+          <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-primary font-bold text-primary mb-2 sm:mb-3" data-gsap="counter" data-target="14" data-suffix="+">0</div>
+          <div class="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg">Years Experience</div>
         </div>
         <div data-gsap="fade-up">
-          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="50" data-suffix="+">0</div>
-          <div class="text-gray-300 text-lg">Coffee Varieties</div>
+          <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-primary font-bold text-primary mb-2 sm:mb-3" data-gsap="counter" data-target="50" data-suffix="+">0</div>
+          <div class="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg">Coffee Varieties</div>
         </div>
         <div data-gsap="fade-up">
-          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="15000" data-suffix="">0</div>
-          <div class="text-gray-300 text-lg">Happy Customers</div>
+          <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-primary font-bold text-primary mb-2 sm:mb-3" data-gsap="counter" data-target="15000" data-suffix="">0</div>
+          <div class="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg">Happy Customers</div>
         </div>
         <div data-gsap="fade-up">
-          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="100" data-suffix="%">0</div>
-          <div class="text-gray-300 text-lg">Organic Beans</div>
+          <div class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-primary font-bold text-primary mb-2 sm:mb-3" data-gsap="counter" data-target="100" data-suffix="%">0</div>
+          <div class="text-gray-300 text-xs sm:text-sm md:text-base lg:text-lg">Organic Beans</div>
         </div>
       </div>
     </div>
@@ -121,14 +121,14 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- Testimonials Section -->
   <section class="section-padding bg-gray-50">
     <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+        <span class="text-primary font-secondary font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 block" data-gsap="fade-in">
           Testimonials
         </span>
-        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+        <h2 class="text-h2 mb-4 sm:mb-5 md:mb-6" data-gsap="fade-up">
           What Our Customers Say
         </h2>
-        <p class="text-body text-lg" data-gsap="fade-up">
+        <p class="text-body text-sm sm:text-base md:text-lg" data-gsap="fade-up">
           Don't just take our word for it. Here's what our coffee lovers have to say
         </p>
       </div>
@@ -140,14 +140,14 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- Blog Section -->
   <section class="section-padding bg-white">
     <div class="container-custom">
-      <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+      <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16">
+        <span class="text-primary font-secondary font-bold text-xs sm:text-sm uppercase tracking-wider mb-3 sm:mb-4 block" data-gsap="fade-in">
           Latest Stories
         </span>
-        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+        <h2 class="text-h2 mb-4 sm:mb-5 md:mb-6" data-gsap="fade-up">
           From Our Blog
         </h2>
-        <p class="text-body text-lg" data-gsap="fade-up">
+        <p class="text-body text-sm sm:text-base md:text-lg" data-gsap="fade-up">
           Explore coffee culture, brewing tips, and behind-the-scenes stories
         </p>
       </div>
@@ -159,21 +159,21 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <!-- CTA Section -->
   <section class="section-padding bg-gradient-primary text-white relative overflow-hidden">
     <!-- Decorative circles -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
-    <div class="absolute bottom-0 left-0 w-72 h-72 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+    <div class="hidden sm:block absolute top-0 right-0 w-72 h-72 sm:w-96 sm:h-96 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+    <div class="hidden sm:block absolute bottom-0 left-0 w-48 h-48 sm:w-72 sm:h-72 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
     <div class="container-custom relative z-10 text-center">
-      <h2 class="text-h2 mb-6" data-gsap="fade-up">
+      <h2 class="text-h2 mb-4 sm:mb-5 md:mb-6" data-gsap="fade-up">
         Ready for Your Perfect Cup?
       </h2>
-      <p class="text-xl mb-10 max-w-2xl mx-auto opacity-90" data-gsap="fade-up">
+      <p class="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 md:mb-10 max-w-2xl mx-auto opacity-90" data-gsap="fade-up">
         Visit us today or reserve your table for a memorable coffee experience
       </p>
-      <div class="flex flex-wrap justify-center gap-4" data-gsap="fade-up">
-        <a href="/contact" class="btn-white btn-lg">
+      <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4" data-gsap="fade-up">
+        <a href="/contact" class="btn-white w-full sm:w-auto">
           Reserve a Table
         </a>
-        <a href="/gallery" class="btn-secondary !border-white !text-white btn-lg">
+        <a href="/gallery" class="btn-secondary !border-white !text-white w-full sm:w-auto">
           View Gallery
         </a>
       </div>

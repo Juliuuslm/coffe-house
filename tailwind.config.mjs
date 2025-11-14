@@ -3,6 +3,14 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   darkMode: 'class',
   theme: {
+    // Mobile-first responsive breakpoints
+    screens: {
+      'sm': '480px',   // Mobile large / phablets
+      'md': '768px',   // Tablets
+      'lg': '1024px',  // Laptops
+      'xl': '1280px',  // Desktop
+      '2xl': '1536px', // Large desktop
+    },
     extend: {
       colors: {
         primary: {
@@ -39,16 +47,18 @@ export default {
         secondary: ['"Plus Jakarta Sans"', 'sans-serif'],
       },
       fontSize: {
-        'display': ['5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'h1': ['4.125rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],
-        'h2': ['3rem', { lineHeight: '1.25' }],
-        'h3': ['2.25rem', { lineHeight: '1.3' }],
-        'h4': ['1.875rem', { lineHeight: '1.4' }],
-        'h5': ['1.5rem', { lineHeight: '1.5' }],
-        'h6': ['1.25rem', { lineHeight: '1.5' }],
-        'body-lg': ['1.375rem', { lineHeight: '1.7' }],
-        'body': ['1rem', { lineHeight: '1.7' }],
-        'body-sm': ['0.875rem', { lineHeight: '1.6' }],
+        // Responsive typography - mobile-first approach
+        // Base sizes optimized for mobile (320px-479px)
+        'display': ['2.5rem', { lineHeight: '1.1', letterSpacing: '-0.02em' }],      // 40px mobile → 80px desktop
+        'h1': ['2rem', { lineHeight: '1.2', letterSpacing: '-0.01em' }],             // 32px mobile → 66px desktop
+        'h2': ['1.75rem', { lineHeight: '1.25' }],                                   // 28px mobile → 48px desktop
+        'h3': ['1.5rem', { lineHeight: '1.3' }],                                     // 24px mobile → 36px desktop
+        'h4': ['1.25rem', { lineHeight: '1.4' }],                                    // 20px mobile → 30px desktop
+        'h5': ['1.125rem', { lineHeight: '1.5' }],                                   // 18px mobile → 24px desktop
+        'h6': ['1rem', { lineHeight: '1.5' }],                                       // 16px mobile → 20px desktop
+        'body-lg': ['1.125rem', { lineHeight: '1.7' }],                              // 18px mobile → 22px desktop
+        'body': ['1rem', { lineHeight: '1.7' }],                                     // 16px
+        'body-sm': ['0.875rem', { lineHeight: '1.6' }],                              // 14px
       },
       spacing: {
         '18': '4.5rem',
@@ -113,7 +123,7 @@ export default {
     function ({ addComponents, theme }) {
       addComponents({
         '.btn': {
-          '@apply inline-flex items-center justify-center px-8 py-4 font-secondary font-semibold text-base rounded-full transition-all duration-300 relative overflow-hidden': {},
+          '@apply inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 font-secondary font-semibold text-sm sm:text-base rounded-full transition-all duration-300 relative overflow-hidden': {},
           '@apply focus:outline-none focus-visible:ring-4 focus-visible:ring-primary/30': {},
           '@apply active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none': {},
         },
@@ -136,16 +146,16 @@ export default {
           '@apply px-6 py-3 text-sm': {},
         },
         '.container-custom': {
-          '@apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8': {},
+          '@apply max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-8': {},
         },
         '.container-wide': {
-          '@apply max-w-8xl mx-auto px-4 sm:px-6 lg:px-8': {},
+          '@apply max-w-8xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-8': {},
         },
         '.section-padding': {
-          '@apply py-20 md:py-28 lg:py-36': {},
+          '@apply py-12 sm:py-16 md:py-20 lg:py-28 xl:py-36': {},
         },
         '.section-padding-sm': {
-          '@apply py-12 md:py-16 lg:py-20': {},
+          '@apply py-8 sm:py-10 md:py-12 lg:py-16 xl:py-20': {},
         },
         '.card': {
           '@apply bg-white rounded-2xl overflow-hidden transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/20': {},

@@ -47,12 +47,12 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 sm:space-y-5 md:space-y-6">
       {/* Name and Email Row */}
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
         {/* Name */}
         <div>
-          <label htmlFor="name" className="block text-sm font-semibold mb-2 text-heading">
+          <label htmlFor="name" className="block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 text-heading">
             Name *
           </label>
           <input
@@ -60,20 +60,20 @@ export const ContactForm = () => {
             type="text"
             id="name"
             placeholder="Your name"
-            className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+            className={`w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 rounded-lg focus:outline-none transition-colors ${
               errors.name
                 ? 'border-red-500 focus:border-red-600'
                 : 'border-gray-300 focus:border-primary'
             }`}
           />
           {errors.name && (
-            <p className="mt-2 text-sm text-red-600">{errors.name.message}</p>
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-red-600">{errors.name.message}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
-          <label htmlFor="email" className="block text-sm font-semibold mb-2 text-heading">
+          <label htmlFor="email" className="block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 text-heading">
             Email *
           </label>
           <input
@@ -81,35 +81,35 @@ export const ContactForm = () => {
             type="email"
             id="email"
             placeholder="your@email.com"
-            className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+            className={`w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 rounded-lg focus:outline-none transition-colors ${
               errors.email
                 ? 'border-red-500 focus:border-red-600'
                 : 'border-gray-300 focus:border-primary'
             }`}
           />
           {errors.email && (
-            <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
+            <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-red-600">{errors.email.message}</p>
           )}
         </div>
       </div>
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="block text-sm font-semibold mb-2 text-heading">
-          Phone <span className="text-gray-500 font-normal">(optional)</span>
+        <label htmlFor="phone" className="block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 text-heading">
+          Phone <span className="text-gray-500 font-normal text-xs">(optional)</span>
         </label>
         <input
           {...register('phone')}
           type="tel"
           id="phone"
           placeholder="+1 (234) 567-890"
-          className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
+          className="w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
         />
       </div>
 
       {/* Subject */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold mb-2 text-heading">
+        <label htmlFor="subject" className="block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 text-heading">
           Subject *
         </label>
         <input
@@ -117,35 +117,35 @@ export const ContactForm = () => {
           type="text"
           id="subject"
           placeholder="How can we help?"
-          className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
+          className={`w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 rounded-lg focus:outline-none transition-colors ${
             errors.subject
               ? 'border-red-500 focus:border-red-600'
               : 'border-gray-300 focus:border-primary'
           }`}
         />
         {errors.subject && (
-          <p className="mt-2 text-sm text-red-600">{errors.subject.message}</p>
+          <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-red-600">{errors.subject.message}</p>
         )}
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold mb-2 text-heading">
+        <label htmlFor="message" className="block text-xs sm:text-sm font-semibold mb-1.5 sm:mb-2 text-heading">
           Message *
         </label>
         <textarea
           {...register('message')}
           id="message"
-          rows={6}
+          rows={5}
           placeholder="Your message..."
-          className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors resize-none ${
+          className={`w-full px-3 py-2 sm:px-4 sm:py-3 text-sm sm:text-base border-2 rounded-lg focus:outline-none transition-colors resize-none ${
             errors.message
               ? 'border-red-500 focus:border-red-600'
               : 'border-gray-300 focus:border-primary'
           }`}
         />
         {errors.message && (
-          <p className="mt-2 text-sm text-red-600">{errors.message.message}</p>
+          <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-red-600">{errors.message.message}</p>
         )}
       </div>
 
@@ -153,7 +153,7 @@ export const ContactForm = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="btn-primary btn-lg w-full md:w-auto relative"
+        className="btn-primary w-full sm:w-full md:w-auto relative touch-manipulation"
       >
         {isSubmitting ? (
           <>

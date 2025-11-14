@@ -13,20 +13,20 @@ const currentPath = Astro.url.pathname;
 
 <header id="header" class="fixed top-0 left-0 right-0 z-[9999] transition-all duration-300">
   <div class="container-custom">
-    <div class="flex items-center justify-between py-6">
+    <div class="flex items-center justify-between py-4 sm:py-5 md:py-6">
       <!-- Logo -->
-      <a href="/" class="text-2xl font-primary font-bold text-heading hover:text-primary transition-colors">
+      <a href="/" class="text-xl sm:text-2xl md:text-2xl font-primary font-bold text-heading hover:text-primary transition-colors">
         <span class="hidden sm:inline">Coffee House</span>
         <span class="sm:hidden">CH</span>
       </a>
 
       <!-- Desktop Navigation -->
-      <nav class="hidden lg:flex items-center gap-10">
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-10">
         {
           navLinks.map((link) => (
             <a
               href={link.href}
-              class={`font-secondary font-medium text-base transition-colors relative group ${
+              class={`font-secondary font-medium text-sm xl:text-base transition-colors relative group ${
                 currentPath === link.href
                   ? 'text-primary'
                   : 'text-heading hover:text-primary'
@@ -53,12 +53,12 @@ const currentPath = Astro.url.pathname;
       <!-- Mobile Menu Button -->
       <button
         id="mobile-menu-button"
-        class="lg:hidden flex flex-col gap-1.5 w-8 h-8 justify-center items-center"
+        class="lg:hidden flex flex-col gap-1 sm:gap-1.5 w-7 h-7 sm:w-8 sm:h-8 justify-center items-center touch-manipulation"
         aria-label="Toggle menu"
       >
-        <span class="block w-6 h-0.5 bg-heading transition-all duration-300"></span>
-        <span class="block w-6 h-0.5 bg-heading transition-all duration-300"></span>
-        <span class="block w-6 h-0.5 bg-heading transition-all duration-300"></span>
+        <span class="block w-5 sm:w-6 h-0.5 bg-heading transition-all duration-300"></span>
+        <span class="block w-5 sm:w-6 h-0.5 bg-heading transition-all duration-300"></span>
+        <span class="block w-5 sm:w-6 h-0.5 bg-heading transition-all duration-300"></span>
       </button>
     </div>
   </div>
@@ -74,15 +74,15 @@ const currentPath = Astro.url.pathname;
   <div
     id="mobile-menu"
     class="lg:hidden fixed inset-0 bg-white transform translate-x-full transition-all duration-300 ease-out shadow-2xl"
-    style="top: 80px; z-index: 45;"
+    style="top: 72px; z-index: 45;"
   >
-    <nav class="container-custom py-8 flex flex-col gap-6 h-full overflow-y-auto">
+    <nav class="container-custom py-6 sm:py-8 flex flex-col gap-4 sm:gap-6 h-full overflow-y-auto">
       {
         navLinks.map((link, index) => (
           <a
             href={link.href}
             data-menu-link
-            class={`mobile-menu-link font-secondary font-semibold text-2xl transition-all duration-300 hover:pl-4 ${
+            class={`mobile-menu-link font-secondary font-semibold text-xl sm:text-2xl transition-all duration-300 hover:pl-4 ${
               currentPath === link.href
                 ? 'text-primary'
                 : 'text-heading hover:text-primary'
@@ -96,11 +96,11 @@ const currentPath = Astro.url.pathname;
           </a>
         ))
       }
-      <div class="pt-6 border-t border-gray-200 space-y-4">
+      <div class="pt-4 sm:pt-6 border-t border-gray-200 space-y-3 sm:space-y-4">
         <a href="/contact" class="btn-primary w-full block text-center" data-menu-link>
           Reserve Table
         </a>
-        <div class="flex gap-4 justify-center" data-menu-link>
+        <div class="flex gap-3 sm:gap-4 justify-center" data-menu-link>
           <a href="#" class="w-10 h-10 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-primary hover:text-primary transition-colors">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
@@ -292,6 +292,18 @@ const currentPath = Astro.url.pathname;
 
 <style>
   #mobile-menu {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 72px);
+  }
+
+  @media (min-width: 480px) {
+    #mobile-menu {
+      height: calc(100vh - 80px);
+    }
+  }
+
+  @media (min-width: 768px) {
+    #mobile-menu {
+      height: calc(100vh - 88px);
+    }
   }
 </style>
