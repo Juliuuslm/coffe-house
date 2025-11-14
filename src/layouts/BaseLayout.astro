@@ -1,4 +1,5 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '@/styles/global.css';
 
 export interface Props {
@@ -48,24 +49,57 @@ const siteTitle = title === 'Coffee House - Artisan Coffee & Pastries' ? title :
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
-    <!-- Fonts Preload -->
+    <!-- Fonts Preconnect and Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+      />
+    </noscript>
+
+    <!-- View Transitions -->
+    <ViewTransitions />
   </head>
   <body>
     <slot />
 
-    <script>
-      import { initSmoothScroll } from '@/scripts/smooth-scroll';
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
 
-      // Initialize smooth scroll on page load
+    <script>
+      import { initSmoothScroll, destroySmoothScroll } from '@/scripts/smooth-scroll';
+      import { initGSAPAnimations, refreshScrollTrigger, killScrollTriggers } from '@/scripts/gsap-animations';
+
+      // Initialize on page load
       document.addEventListener('DOMContentLoaded', () => {
         initSmoothScroll();
+        initGSAPAnimations();
       });
 
       // Handle Astro view transitions
       document.addEventListener('astro:page-load', () => {
+        // Clean up old instances to prevent duplicates
+        destroySmoothScroll(); // Destroy Lenis before reinitializing
+        killScrollTriggers();  // Clean up ScrollTriggers
+
         initSmoothScroll();
+        initGSAPAnimations();
+
+        // Refresh ScrollTrigger after content loads
+        setTimeout(() => refreshScrollTrigger(), 100);
       });
     </script>
   </body>

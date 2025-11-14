@@ -2,6 +2,9 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '@/components/astro/Header.astro';
 import Footer from '@/components/astro/Footer.astro';
+import ToastProvider from '@/components/react/ToastProvider';
+import ScrollToTop from '@/components/react/ScrollToTop';
+import ScrollProgressBar from '@/components/react/ScrollProgressBar';
 
 export interface Props {
   title?: string;
@@ -13,9 +16,12 @@ const { title, description, image } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} image={image}>
+  <ScrollProgressBar client:load />
   <Header />
   <main class="pt-20">
     <slot />
   </main>
   <Footer />
+  <ToastProvider client:only="react" />
+  <ScrollToTop client:load />
 </BaseLayout>

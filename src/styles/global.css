@@ -3,9 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-
 /* Base styles */
 @layer base {
   html {
@@ -21,6 +18,16 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-primary text-heading font-medium;
+  }
+
+  /* Ensure headings inside text-white containers are white */
+  .text-white h1,
+  .text-white h2,
+  .text-white h3,
+  .text-white h4,
+  .text-white h5,
+  .text-white h6 {
+    color: white !important;
   }
 
   h1 {
@@ -53,6 +60,15 @@
 
   a {
     @apply transition-colors duration-300;
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2 rounded-sm;
+  }
+
+  button {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 focus-visible:ring-offset-2;
+  }
+
+  input, textarea, select {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:border-primary transition-all duration-200;
   }
 
   img {

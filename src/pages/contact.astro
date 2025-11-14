@@ -1,5 +1,7 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
+import ContactForm from '@/components/react/ContactForm';
+import ReservationSystem from '@/components/react/ReservationSystem';
 ---
 
 <MainLayout
@@ -10,8 +12,8 @@ import MainLayout from '@/layouts/MainLayout.astro';
   <section class="relative h-[60vh] flex items-center justify-center bg-gradient-to-br from-secondary-900 to-secondary-800">
     <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920')] bg-cover bg-center opacity-20"></div>
     <div class="relative z-10 container-custom text-center text-white">
-      <h1 class="text-h1 mb-6">Get In Touch</h1>
-      <p class="text-xl max-w-2xl mx-auto">
+      <h1 class="text-h1 mb-6" data-gsap="fade-up">Get In Touch</h1>
+      <p class="text-xl max-w-2xl mx-auto" data-gsap="fade-up">
         We'd love to hear from you. Visit us, call us, or send us a message.
       </p>
     </div>
@@ -172,75 +174,17 @@ import MainLayout from '@/layouts/MainLayout.astro';
         <!-- Contact Form -->
         <div>
           <h2 class="text-h2 mb-8">Send Us a Message</h2>
-
-          <form id="contact-form" class="space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <label for="name" class="block text-sm font-semibold mb-2">Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label for="email" class="block text-sm font-semibold mb-2">Email *</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label for="phone" class="block text-sm font-semibold mb-2">Phone</label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
-                placeholder="+1 (234) 567-890"
-              />
-            </div>
-
-            <div>
-              <label for="subject" class="block text-sm font-semibold mb-2">Subject *</label>
-              <input
-                type="text"
-                id="subject"
-                name="subject"
-                required
-                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors"
-                placeholder="How can we help?"
-              />
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-semibold mb-2">Message *</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                rows="6"
-                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none transition-colors resize-none"
-                placeholder="Your message..."
-              ></textarea>
-            </div>
-
-            <button type="submit" class="btn-primary btn-lg w-full md:w-auto">
-              Send Message
-            </button>
-
-            <div id="form-message" class="hidden mt-4 p-4 rounded-lg"></div>
-          </form>
+          <ContactForm client:load />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation Section -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="max-w-3xl mx-auto">
+        <ReservationSystem client:load />
       </div>
     </div>
   </section>
@@ -274,44 +218,3 @@ import MainLayout from '@/layouts/MainLayout.astro';
     </div>
   </section>
 </MainLayout>
-
-<script>
-  function initContactForm() {
-    const form = document.getElementById('contact-form') as HTMLFormElement;
-    const message = document.getElementById('form-message');
-
-    if (!form || !message) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      // Show loading state
-      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-      const originalText = submitButton.textContent;
-      submitButton.disabled = true;
-      submitButton.textContent = 'Sending...';
-
-      // Simulate form submission (replace with actual API call)
-      setTimeout(() => {
-        message.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-        message.classList.add('bg-green-100', 'text-green-700');
-        message.textContent = 'Thank you! Your message has been sent successfully. We\'ll get back to you soon.';
-
-        form.reset();
-        submitButton.disabled = false;
-        submitButton.textContent = originalText || 'Send Message';
-
-        // Hide message after 5 seconds
-        setTimeout(() => {
-          message.classList.add('hidden');
-        }, 5000);
-      }, 1500);
-    });
-  }
-
-  // Initialize on page load
-  document.addEventListener('DOMContentLoaded', initContactForm);
-
-  // Re-initialize on Astro page transitions
-  document.addEventListener('astro:page-load', initContactForm);
-</script>

@@ -1,77 +1,39 @@
 ---
 import MainLayout from '@/layouts/MainLayout.astro';
 import { menuItems } from '@/data/menu';
+import HeroSlider from '@/components/react/HeroSlider';
+import TestimonialsSlider from '@/components/react/TestimonialsSlider';
+import BlogSection from '@/components/react/BlogSection';
 
 const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
 ---
 
 <MainLayout>
-  <!-- Hero Section -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background with overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-secondary-900 to-secondary-800">
-      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920')] bg-cover bg-center opacity-30"></div>
-      <div class="absolute inset-0 overlay-gradient"></div>
-    </div>
-
-    <!-- Content -->
-    <div class="relative z-10 container-custom text-center text-white">
-      <h1 class="text-display font-primary mb-6 animate-fade-up">
-        Artisan Coffee<br />& Fresh Pastries
-      </h1>
-      <p class="text-body-lg max-w-2xl mx-auto mb-10 text-gray-200 animate-fade-up" style="animation-delay: 0.2s;">
-        Experience the perfect blend of exceptional coffee and cozy atmosphere. Every cup tells a story.
-      </p>
-      <div class="flex flex-wrap justify-center gap-4 animate-fade-up" style="animation-delay: 0.4s;">
-        <a href="/menu" class="btn-primary btn-lg">
-          Explore Menu
-        </a>
-        <a href="/contact" class="btn-white btn-lg">
-          Reserve Table
-        </a>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-      <svg
-        class="w-6 h-6 text-white"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 14l-7 7m0 0l-7-7m7 7V3"
-        />
-      </svg>
-    </div>
-  </section>
+  <!-- Hero Slider -->
+  <HeroSlider client:load />
 
   <!-- About Preview Section -->
   <section class="section-padding bg-white">
     <div class="container-custom">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block">
+          <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
             Since 2010
           </span>
-          <h2 class="text-h2 mb-6">
+          <h2 class="text-h2 mb-6" data-gsap="fade-up">
             Crafted with Passion, Served with Love
           </h2>
-          <p class="text-body text-lg mb-6 leading-relaxed">
+          <p class="text-body text-lg mb-6 leading-relaxed" data-gsap="fade-up">
             At Coffee House, we believe every cup of coffee should be an experience. From sourcing the finest beans to perfecting each brew, we're dedicated to bringing you exceptional coffee in a warm, welcoming environment.
           </p>
-          <p class="text-body mb-8">
+          <p class="text-body mb-8" data-gsap="fade-up">
             Our expert baristas craft each drink with precision and care, ensuring every visit is memorable. Join us for your morning ritual or afternoon escape.
           </p>
-          <a href="/about" class="btn-primary">
+          <a href="/about" class="btn-primary" data-gsap="fade-up">
             Our Story
           </a>
         </div>
-        <div class="relative">
+        <div class="relative" data-gsap="scale-in">
           <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl">
             <img
               src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800"
@@ -90,18 +52,18 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <section class="section-padding bg-gray-50">
     <div class="container-custom">
       <div class="text-center max-w-3xl mx-auto mb-16">
-        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block">
+        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
           Menu Highlights
         </span>
-        <h2 class="text-h2 mb-6">
+        <h2 class="text-h2 mb-6" data-gsap="fade-up">
           Signature Selections
         </h2>
-        <p class="text-body text-lg">
+        <p class="text-body text-lg" data-gsap="fade-up">
           Discover our most loved creations, carefully crafted to perfection
         </p>
       </div>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" data-gsap="stagger-children">
         {
           featuredMenuItems.map((item) => (
             <div class="card-hover group">
@@ -136,23 +98,61 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
   <section class="section-padding bg-secondary-900 text-white">
     <div class="container-custom">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-        <div class="animate-fade-up">
-          <div class="text-6xl font-primary font-bold text-primary mb-3">14+</div>
+        <div data-gsap="fade-up">
+          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="14" data-suffix="+">0</div>
           <div class="text-gray-300 text-lg">Years Experience</div>
         </div>
-        <div class="animate-fade-up" style="animation-delay: 0.1s;">
-          <div class="text-6xl font-primary font-bold text-primary mb-3">50+</div>
+        <div data-gsap="fade-up">
+          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="50" data-suffix="+">0</div>
           <div class="text-gray-300 text-lg">Coffee Varieties</div>
         </div>
-        <div class="animate-fade-up" style="animation-delay: 0.2s;">
-          <div class="text-6xl font-primary font-bold text-primary mb-3">15K+</div>
+        <div data-gsap="fade-up">
+          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="15000" data-suffix="">0</div>
           <div class="text-gray-300 text-lg">Happy Customers</div>
         </div>
-        <div class="animate-fade-up" style="animation-delay: 0.3s;">
-          <div class="text-6xl font-primary font-bold text-primary mb-3">100%</div>
+        <div data-gsap="fade-up">
+          <div class="text-6xl font-primary font-bold text-primary mb-3" data-gsap="counter" data-target="100" data-suffix="%">0</div>
           <div class="text-gray-300 text-lg">Organic Beans</div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+          Testimonials
+        </span>
+        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+          What Our Customers Say
+        </h2>
+        <p class="text-body text-lg" data-gsap="fade-up">
+          Don't just take our word for it. Here's what our coffee lovers have to say
+        </p>
+      </div>
+
+      <TestimonialsSlider client:load />
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 block" data-gsap="fade-in">
+          Latest Stories
+        </span>
+        <h2 class="text-h2 mb-6" data-gsap="fade-up">
+          From Our Blog
+        </h2>
+        <p class="text-body text-lg" data-gsap="fade-up">
+          Explore coffee culture, brewing tips, and behind-the-scenes stories
+        </p>
+      </div>
+
+      <BlogSection client:load limit={3} showViewAll={true} />
     </div>
   </section>
 
@@ -163,13 +163,13 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
     <div class="absolute bottom-0 left-0 w-72 h-72 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
     <div class="container-custom relative z-10 text-center">
-      <h2 class="text-h2 mb-6">
+      <h2 class="text-h2 mb-6" data-gsap="fade-up">
         Ready for Your Perfect Cup?
       </h2>
-      <p class="text-xl mb-10 max-w-2xl mx-auto opacity-90">
+      <p class="text-xl mb-10 max-w-2xl mx-auto opacity-90" data-gsap="fade-up">
         Visit us today or reserve your table for a memorable coffee experience
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
+      <div class="flex flex-wrap justify-center gap-4" data-gsap="fade-up">
         <a href="/contact" class="btn-white btn-lg">
           Reserve a Table
         </a>
@@ -180,21 +180,3 @@ const featuredMenuItems = menuItems.filter((item) => item.featured).slice(0, 3);
     </div>
   </section>
 </MainLayout>
-
-<style>
-  @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-up {
-    animation: fadeUp 0.8s ease-out forwards;
-    opacity: 0;
-  }
-</style>
