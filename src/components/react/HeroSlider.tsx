@@ -81,7 +81,7 @@ export const HeroSlider = () => {
   }, [swiper]);
 
   return (
-    <section className="relative h-screen overflow-hidden">
+    <section className="relative h-screen overflow-hidden w-full max-w-full">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"
@@ -127,18 +127,18 @@ export const HeroSlider = () => {
                     <span className="inline-block text-primary font-secondary font-bold text-sm uppercase tracking-wider mb-4 animate-fade-in">
                       {slide.subtitle}
                     </span>
-                    <h1 className="text-display font-primary text-white mb-6 animate-fade-up">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-display font-primary text-white mb-6 animate-fade-up leading-tight">
                       {slide.title}
                     </h1>
-                    <p className="text-body-lg text-gray-200 mb-10 animate-fade-up" style={{ animationDelay: '0.2s' }}>
+                    <p className="text-base sm:text-lg md:text-body-lg text-gray-200 mb-10 animate-fade-up" style={{ animationDelay: '0.2s' }}>
                       {slide.description}
                     </p>
                     <div className="flex flex-wrap gap-4 animate-fade-up" style={{ animationDelay: '0.4s' }}>
-                      <a href={slide.ctaLink} className="btn-primary btn-lg">
+                      <a href={slide.ctaLink} className="btn-primary btn-sm sm:btn-lg">
                         {slide.ctaText}
                       </a>
                       {slide.ctaSecondary && (
-                        <a href={slide.ctaSecondaryLink} className="btn-white btn-lg">
+                        <a href={slide.ctaSecondaryLink} className="btn-white btn-sm sm:btn-lg">
                           {slide.ctaSecondary}
                         </a>
                       )}
@@ -170,20 +170,20 @@ export const HeroSlider = () => {
 
       {/* Custom Navigation */}
       <div className="absolute inset-y-0 left-0 right-0 z-20 pointer-events-none">
-        <div className="container-custom h-full flex items-center justify-between pointer-events-auto">
+        <div className="h-full flex items-center justify-between px-4 sm:px-6 lg:px-8 pointer-events-auto">
           <button
-            className="hero-slider-prev w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="hero-slider-prev w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
             aria-label="Previous slide"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
           <button
-            className="hero-slider-next w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed"
+            className="hero-slider-next w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-full bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all hover:scale-110 disabled:opacity-30 disabled:cursor-not-allowed flex-shrink-0"
             aria-label="Next slide"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -196,10 +196,10 @@ export const HeroSlider = () => {
       </div>
 
       {/* Slide Counter */}
-      <div className="absolute top-8 right-8 z-20 text-white font-secondary font-semibold">
-        <span className="text-2xl">{String(activeIndex + 1).padStart(2, '0')}</span>
-        <span className="text-white/50 mx-2">/</span>
-        <span className="text-white/70">{String(slides.length).padStart(2, '0')}</span>
+      <div className="absolute top-6 right-4 sm:top-8 sm:right-8 z-20 text-white font-secondary font-semibold">
+        <span className="text-lg sm:text-2xl">{String(activeIndex + 1).padStart(2, '0')}</span>
+        <span className="text-white/50 mx-1 sm:mx-2">/</span>
+        <span className="text-white/70 text-sm sm:text-lg">{String(slides.length).padStart(2, '0')}</span>
       </div>
 
       <style>{`
