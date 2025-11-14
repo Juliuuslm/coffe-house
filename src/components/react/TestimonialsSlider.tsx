@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import { testimonials } from '@/data/testimonials';
 
 // Import Swiper styles
@@ -25,10 +27,32 @@ const StarRating = ({ rating }: { rating: number }) => {
 };
 
 export const TestimonialsSlider = () => {
+  const [swiper, setSwiper] = useState<SwiperType | null>(null);
+
+  // Cleanup Swiper before View Transitions to prevent blocking header
+  useEffect(() => {
+    const handleBeforeSwap = () => {
+      if (swiper) {
+        swiper.destroy(true, true);
+        setSwiper(null);
+      }
+    };
+
+    document.addEventListener('astro:before-swap', handleBeforeSwap);
+
+    return () => {
+      document.removeEventListener('astro:before-swap', handleBeforeSwap);
+      if (swiper) {
+        swiper.destroy(true, true);
+      }
+    };
+  }, [swiper]);
+
   return (
     <div className="relative">
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
+        onSwiper={setSwiper}
         spaceBetween={30}
         slidesPerView={1}
         speed={800}

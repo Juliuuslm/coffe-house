@@ -61,6 +61,25 @@ export const HeroSlider = () => {
   const [swiper, setSwiper] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  // Cleanup Swiper before View Transitions to prevent blocking header
+  useEffect(() => {
+    const handleBeforeSwap = () => {
+      if (swiper) {
+        swiper.destroy(true, true);
+        setSwiper(null);
+      }
+    };
+
+    document.addEventListener('astro:before-swap', handleBeforeSwap);
+
+    return () => {
+      document.removeEventListener('astro:before-swap', handleBeforeSwap);
+      if (swiper) {
+        swiper.destroy(true, true);
+      }
+    };
+  }, [swiper]);
+
   return (
     <section className="relative h-screen overflow-hidden">
       <Swiper
